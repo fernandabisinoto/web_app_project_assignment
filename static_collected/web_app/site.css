@@ -31,11 +31,11 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input[name=message] {
+input[name=customerASIN] {
     width: 80%;
 }
 
-.message_list th,td {
+.customer_list th,td {
     text-align: left;
     padding-right: 15px;
 }

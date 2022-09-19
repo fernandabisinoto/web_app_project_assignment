@@ -1,7 +1,32 @@
 {% extends "web_app/layout.html" %}
 {% block title %}
-About us
+    Customers
 {% endblock %}
 {% block content %}
-<p>About page for the Visual Studio Code Django tutorial.</p>
+    <h2>Customers</h2>
+
+    {% if customer_list %}
+        <table class="customer_list">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Customer</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for customer in customer_list %}
+                <tr>
+                    <td>{{ customer.log_date | date:'d M Y' }}</td>
+                    <td>{{ customer.log_date | time:'H:i:s' }}</td>
+                    <td>
+                        {{ customer.customer }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No customers have been created yet. Use the <a href="{% url 'new_customer_form' %}">Create New Customer</a>.</p>
+    {% endif %}
 {% endblock %}
