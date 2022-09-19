@@ -1,3 +1,10 @@
+<!---
+References:
+    Based on the 'Create a base page template and styles' section of the django tutorial:
+    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 09 September 2022).
+--->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,14 +12,21 @@
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'web_app/site.css' %}"/>
+    {% include 'web_app/messages.html' %}
 </head>
 
 <body>
 <div class="navbar">
     <a href="{% url 'home' %}" class="navbar-brand">Home</a>
-    <a href="{% url 'log' %}" class="navbar-item">Log Message</a>
-    <a href="{% url 'about' %}" class="navbar-item">About</a>
-    <a href="{% url 'contact' %}" class="navbar-item">Contact</a>    
+    <a href="{% url 'customer' %}" class="navbar-item">Customer Lookup</a>
+    <a href="{% url 'device' %}" class="navbar-item">Device Lookup</a>
+    <a href="{% url 'customer_form' %}" class="navbar-item">Create New Customer</a>
+    <a href="{% url 'login' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
+       {% else %}style="display: inline"{% endif %}>Login</a>
+    <a href="{% url 'register' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
+       {% else %}style="display: inline"{% endif %}>Register New Engineer</a>
+    <a href="{% url 'logout' %}" class="navbar-item" {% if not request.user.is_authenticated %}style="display: none"
+       {% else %}style="display: inline"{% endif %}>Logout</a>    
 </div>
 
 <div class="body-content">
@@ -20,7 +34,7 @@
     {% endblock %}
     <hr/>
     <footer>
-        <p>© 2018</p>
+        <p>© 2022</p>
     </footer>
 </div>
 </body>

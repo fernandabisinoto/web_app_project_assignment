@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['web-app-project-assignment.herokuapp.com']
 
-
 # Application definition
 
 INSTALLED_APPS = [
