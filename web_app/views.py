@@ -15,12 +15,6 @@ class HomeListView(ListView):
         context = super(HomeListView, self).get_context_data(**kwargs)
         return context
 
-def about(request):
-    return render(request, "web_app/about.html")
-
-def contact(request):
-    return render(request, "web_app/contact.html")
-
 def hello_there(request, name):
     return render(
         request,
@@ -30,6 +24,21 @@ def hello_there(request, name):
             'date': datetime.now()
         }
     )
+    
+def customer(request):
+    return render(request, "web_app/customer.html")
+
+def device(request):
+    return render(request, "web_app/device.html")
+    
+def new_customer_form(request):
+    return render(request, "web_app/new_customer_form.html")
+
+def login(request):
+    return render(request, "web_app/login.html")    
+
+def new_eng_form(request):
+    return render(request, "web_app/new_eng_form.html")     
 
 def log_message(request):
     form = LogMessageForm(request.POST or None)

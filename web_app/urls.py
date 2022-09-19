@@ -11,7 +11,10 @@ home_list_view = views.HomeListView.as_view(
 urlpatterns = [
     path("", home_list_view, name="home"),
     path("web_app/<name>", views.hello_there, name="hello_there"),
-    path("about/", views.about, name="about"),
-    path("contact/", views.contact, name="contact"),
-    path("log/", views.log_message, name="log"),
+    path("customer/", views.customer, name="customer"),
+    path("device/", views.device, name="device"),
+    path("new_customer_form/", views.new_customer_form, name="new_customer_form"),
+    path("login/", views.login, name="login"),
+    path("new_eng_form/", views.new_eng_form, name="new_eng_form"),
+    path("logout/", views.log_message, name="logout"),
 ]
