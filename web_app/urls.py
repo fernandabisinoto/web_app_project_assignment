@@ -10,7 +10,7 @@ customer_list_view = views.CustomerListView.as_view(
 
 urlpatterns = [
     path("web_app/<name>", views.hello_there, name="hello_there"),
-    path("", views.home_request, name="customer"),
+    path("", views.home_request, name="home"),
     path("customer/", customer_list_view, name="customer"),
     path("device/", views.device, name="device"),
     path("new_customer_form/", views.new_customer_form, name="new_customer_form"),
