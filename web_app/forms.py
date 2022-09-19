@@ -10,7 +10,7 @@ class NewEngineerForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email", "password1", "password2", "is_superuser")
+        fields = ("first_name", "last_name", "username", "email", "password1", "password2", "is_superuser")
 
     def save(self, commit=True):
         user = super(NewEngineerForm, self).save(commit=False)

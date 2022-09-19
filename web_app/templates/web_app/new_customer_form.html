@@ -1,7 +1,9 @@
 {% extends "web_app/layout.html" %}
+
 {% block title %}
     Create new customer
 {% endblock %}
+
 {% block content %}
     <form method="POST" class="new-customer-form">
         {% csrf_token %}

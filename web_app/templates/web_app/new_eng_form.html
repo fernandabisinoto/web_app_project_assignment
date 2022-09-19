@@ -9,8 +9,8 @@ About us
     <h2>Login</h2>
     <form method="POST">
         {% csrf_token %}
-        {{ login_form }}
-        <button class="btn btn-primary" type="submit">Login</button>
+        {{ register_form }}
+        <button class="btn btn-primary" type="submit">Register</button>
     </form>
     <p class="text-center">If you already have an account, <a href="{% url 'new_eng_form' %}">login</a> instead.</p>
 </div>

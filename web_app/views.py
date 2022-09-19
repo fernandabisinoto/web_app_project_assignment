@@ -63,12 +63,12 @@ def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
 		if form.is_valid():
-			amazon_alias = form.cleaned_data.get('amazon_alias')
+			username = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
-			user = authenticate(amazon_alias=amazon_alias, password=password)
+			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.info(request, f"You are now logged in as {amazon_alias}.")
+				messages.info(request, f"You are now logged in as {username}.")
 				return redirect("web_app/home")
 			else:
 				messages.error(request,"Invalid username or password.")
