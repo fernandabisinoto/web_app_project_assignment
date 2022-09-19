@@ -12,7 +12,6 @@ References:
     <title>{% block title %}{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'web_app/site.css' %}"/>
-    {% include 'web_app/messages.html' %}
 </head>
 
 <body>
@@ -20,10 +19,10 @@ References:
     <a href="{% url 'home' %}" class="navbar-brand">Home</a>
     <a href="{% url 'customer' %}" class="navbar-item">Customer Lookup</a>
     <a href="{% url 'device' %}" class="navbar-item">Device Lookup</a>
-    <a href="{% url 'customer_form' %}" class="navbar-item">Create New Customer</a>
+    <a href="{% url 'new_customer_form' %}" class="navbar-item">Create New Customer</a>
     <a href="{% url 'login' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
        {% else %}style="display: inline"{% endif %}>Login</a>
-    <a href="{% url 'register' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
+    <a href="{% url 'new_eng_form' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
        {% else %}style="display: inline"{% endif %}>Register New Engineer</a>
     <a href="{% url 'logout' %}" class="navbar-item" {% if not request.user.is_authenticated %}style="display: none"
        {% else %}style="display: inline"{% endif %}>Logout</a>    
