@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
 
 class CustomerListView(ListView):
     login_url = "login"
@@ -42,11 +43,12 @@ def new_eng_request(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful." )
-            return redirect("web_app/home")
+            return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewEngineerForm()
     return render (request, "web_app/new_eng_form.html", {"register_form":form})    
 
+@login_required(login_url="login")
 def create_customer(request):
     form = NewCustomerForm(request.POST or None)
 
@@ -55,10 +57,11 @@ def create_customer(request):
             customerASIN = form.save(commit=False)
             customerASIN.log_date = datetime.now()
             customerASIN.save()
-            return redirect("home")
+            return redirect("customer")
     else:
-        return render(request, "web_app/log_message.html", {"form": form})    
+        return render(request, "web_app/new_customer_form.html", {"form": form})    
 
+@login_required(login_url="login")
 def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
@@ -77,6 +80,7 @@ def login_request(request):
 	form = AuthenticationForm()
 	return render(request, "web_app/login.html", {"login_form":form})
 
+@login_required(login_url="login")
 def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
