@@ -53,7 +53,7 @@ def create_customer(request):
             customerASIN = form.save(commit=False)
             customerASIN.log_date = datetime.now()
             customerASIN.save()
-            return redirect("customer")
+            return redirect("customers")
     else:
         return render(request, "web_app/new_customer_form.html", {"form": form})    
 
@@ -75,4 +75,4 @@ def login_request(request):
 def logout_request(request):
 	logout(request)
 	messages.info(request, "You have successfully logged out.") 
-	return redirect("web_app/home")
+	return redirect("login")
