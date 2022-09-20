@@ -2,7 +2,7 @@ import re
 from django.utils.timezone import datetime
 from django.shortcuts import render, redirect
 from web_app.forms import NewCustomerForm, NewEngineerForm
-from web_app.models import CreateCustomer
+from web_app.models import Customers
 from django.views.generic import ListView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 class CustomerListView(ListView):
     login_url = "login"
-    model = CreateCustomer
+    model = Customers
 
     def get_context_data(self, **kwargs):
         context = super(CustomerListView, self).get_context_data(**kwargs)
@@ -67,7 +67,7 @@ def login_request(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("home")
+                return redirect("customers")
         messages.error(request,"Invalid username or password.")
     return render(request, "web_app/login.html", {"login_form":form})
 
