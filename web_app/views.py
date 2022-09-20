@@ -61,7 +61,6 @@ def create_customer(request):
     else:
         return render(request, "web_app/new_customer_form.html", {"form": form})    
 
-@login_required(login_url="login")
 def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)

@@ -27,8 +27,7 @@ References:
     <a href="{% url 'new_customer_form' %}" class="navbar-item">Create New Customer</a>
     <a href="{% url 'new_eng_form' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
     {% else %}style="display: inline"{% endif %}>Register New Engineer</a>
-    <a href="{% url 'login' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
-    {% else %}style="display: inline"{% endif %}>Login</a>
+    <a href="{% url 'login' %}" class="navbar-item">Login</a>
     <a href="{% url 'logout' %}" class="navbar-item" {% if not request.user.is_authenticated %}style="display: none"
     {% else %}style="display: inline"{% endif %}>Logout</a>
 </div>
