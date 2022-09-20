@@ -5,7 +5,7 @@ from web_app.models import Customers
 customer_list_view = views.CustomerListView.as_view(
     queryset=Customers.objects.order_by("-log_date")[:5],  # :5 limits the results to the five most recent
     context_object_name="customer_list",
-    template_name="web_app/customer.html",
+    template_name="web_app/customers.html",
 )
 
 urlpatterns = [
