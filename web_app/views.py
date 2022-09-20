@@ -8,8 +8,9 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class CustomerListView(ListView):
+class CustomerListView(LoginRequiredMixin, ListView):
     login_url = "login"
     model = Customers
 
