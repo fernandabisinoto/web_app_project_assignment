@@ -40,7 +40,7 @@ def create_eng(request):
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful." )
-            return redirect("customer")
+            return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     return render (request, "web_app/new_eng_form.html", {"register_form":form})    
 
