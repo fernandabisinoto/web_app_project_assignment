@@ -25,7 +25,7 @@ References:
     <a href="{% url 'customers' %}" class="navbar-item">Customer Lookup</a>
     <a href="{% url 'device' %}" class="navbar-item">Device Lookup</a>
     <a href="{% url 'new_customer_form' %}" class="navbar-item"> Create New Customer</a>
-    <a href="{% url 'new_eng_form' %}" class="navbar-item" % if request.user.is_authenticated %}style="display: none"
+    <a href="{% url 'new_eng_form' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
     {% else %}style="display: inline"{% endif %}>Register New Engineer</a>
     <a href="{% url 'login' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
     {% else %}style="display: inline"{% endif %}>Login</a>
