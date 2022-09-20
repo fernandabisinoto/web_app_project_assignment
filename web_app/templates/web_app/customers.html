@@ -13,7 +13,7 @@
             <tr>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Customer</th>
+                <th>Customer ASIN</th>
             </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     <td>{{ customer.log_date | date:'d M Y' }}</td>
                     <td>{{ customer.log_date | time:'H:i:s' }}</td>
                     <td>
-                        {{ customer.customer }}
+                        {{ customer.customerASIN }}
                     </td>
                 </tr>
             {% endfor %}

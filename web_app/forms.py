@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from web_app.models import Customers, Engineers
+from web_app.models import Customers
 
 class NewEngineerForm(UserCreationForm):
     first_name = forms.CharField(required=True)
@@ -15,11 +15,10 @@ class NewEngineerForm(UserCreationForm):
     def save(self, commit=True):
         user = super(NewEngineerForm, self).save(commit=False)
         user.email = self.cleaned_data['email']
-
         if commit:
             user.save()
-        return user        
-
+        return user  
+        
 class NewCustomerForm(forms.ModelForm):
     class Meta:
         model = Customers
