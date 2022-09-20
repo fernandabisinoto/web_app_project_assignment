@@ -1,1 +1,1 @@
-web: gunicorn web_app_project.wsgi --limit-request-line 8190
+web: gunicorn web_app_project.wsgi --limit-request-line 0
