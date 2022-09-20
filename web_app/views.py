@@ -32,20 +32,16 @@ def home_request(request):
 
 def device(request):
     return render(request, "web_app/device.html")
-    
-def new_customer_form(request):
-    return render(request, "web_app/new_customer_form.html")   
 
-def new_eng_request(request):
+def create_eng(request):
+    form = NewEngineerForm(request.POST or None)
     if request.method == "POST":
-        form = NewEngineerForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful." )
-            return redirect("home")
+            return redirect("customer")
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewEngineerForm()
     return render (request, "web_app/new_eng_form.html", {"register_form":form})    
 
 @login_required(login_url="login")
@@ -62,22 +58,18 @@ def create_customer(request):
         return render(request, "web_app/new_customer_form.html", {"form": form})    
 
 def login_request(request):
-	if request.method == "POST":
-		form = AuthenticationForm(request, data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				login(request, user)
-				messages.info(request, f"You are now logged in as {username}.")
-				return redirect("web_app/home")
-			else:
-				messages.error(request,"Invalid username or password.")
-		else:
-			messages.error(request,"Invalid username or password.")
-	form = AuthenticationForm()
-	return render(request, "web_app/login.html", {"login_form":form})
+    form = AuthenticationForm(request, data=request.POST)
+    if request.method == "POST":
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect("home")
+        messages.error(request,"Invalid username or password.")
+    return render(request, "web_app/login.html", {"login_form":form})
 
 @login_required(login_url="login")
 def logout_request(request):

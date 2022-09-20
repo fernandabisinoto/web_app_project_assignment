@@ -13,8 +13,8 @@ urlpatterns = [
     path("", views.home_request, name="home"),
     path("customer/", customer_list_view, name="customer"),
     path("device/", views.device, name="device"),
-    path("new_customer_form/", views.new_customer_form, name="new_customer_form"),
-    path("new_eng_form/", views.new_eng_request, name="new_eng_form"),
+    path("new_customer_form/", views.create_customer, name="new_customer_form"),
+    path("new_eng_form/", views.create_eng, name="new_eng_form"),
     path("login/", views.login_request, name="login"),
     path("logout/", views.logout_request, name="logout"),
 ]
