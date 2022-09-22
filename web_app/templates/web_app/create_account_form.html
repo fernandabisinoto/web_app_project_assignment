@@ -1,13 +1,13 @@
 {% extends "web_app/layout.html" %}
 
 {% block title %}
-    Create new customer
+    Create New Account
 {% endblock %}
 
 {% block content %}
-    <form method="POST" class="new-customer-form">
+    <form method="POST" class="create-account-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ create_account_form.as_p }}
         <button type="submit" class="save btn btn-default">Create</button>
     </form>
 {% endblock %}

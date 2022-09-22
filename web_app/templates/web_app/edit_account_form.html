@@ -1,0 +1,22 @@
+<!---
+References:
+    edit_ticket_form.html based on 'log_message.html' file of the 'define models' section of Django tutorial:
+
+    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 13 September 2022).
+--->
+
+{% extends "web_app/layout.html" %}
+
+{% block title %}
+    Edit Account
+{% endblock %}
+
+{% block content %}
+    <h2>Edit Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ edit_account_form.as_p }}
+        <button type="submit" class="save btn btn-default">Update</button>
+    </form>
+{% endblock %}

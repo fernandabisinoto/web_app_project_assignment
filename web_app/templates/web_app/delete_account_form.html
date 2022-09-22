@@ -1,0 +1,23 @@
+<!---
+References:
+    delete_account_form based on template in Django documentation:
+
+    Django (no date) [online] Generic editing views | Django documentation. Available at:
+    https://docs.djangoproject.com/en/4.0/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView
+    (Accessed: 13 September 2022).
+--->
+
+{% extends "web_app/layout.html" %}
+
+{% block title %}
+    Delete Account
+{% endblock %}
+
+{% block content %}
+    <h2>Delete Account</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to delete Account: {{ object.ASIN }} ?</p>
+            <input type="submit" value="Confirm">
+        </form>
+{% endblock %}

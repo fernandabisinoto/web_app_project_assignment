@@ -1,0 +1,11 @@
+<h2>Cuurently Testing</h2>
+
+{% if testing_status.exists %}
+    {% for engineer in testing_status %}
+    <p>Current engineer testing: {{ engineer.name }}</p>
+    {% endfor %}
+{% else %}
+    <p>No engineer currently testing.</p>
+{% endif %}
+
+<p> <a href="{% url 'set_testing_status' %}">Set testing status</a></p>

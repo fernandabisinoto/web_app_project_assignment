@@ -1,20 +1,21 @@
 from django.urls import path
-from web_app import views
-from web_app.models import Customers
+from django.urls import re_path
 
-customer_list_view = views.CustomerListView.as_view(
-    queryset=Customers.objects.order_by("-log_date")[:5],  # :5 limits the results to the five most recent
-    context_object_name="customer_list",
-    template_name="web_app/customers.html",
-)
+from web_app import views
+
+account_list_view = views.AccountListView.as_view(template_name="web_app/accounts.html")
+user_account_list_view = views.AccountListView.as_view(template_name="web_app/user_accounts.html")
+delete_account_list_view = views.AccountDeleteView.as_view(template_name="web_app/delete_account_form.html")
 
 urlpatterns = [
-    path("web_app/<name>", views.hello_there, name="hello_there"),
+    re_path(r'^accounts/update/(?P<pk>\d)/$', views.edit_account_request, name="edit_account"),
+    re_path(r'^accounts/delete/(?P<pk>\d)/$', delete_account_list_view, name="delete_account"),
     path("", views.home_request, name="home"),
-    path("customers/", customer_list_view, name="customers"),
-    path("device/", views.device, name="device"),
-    path("new_customer_form/", views.create_customer, name="new_customer_form"),
-    path("new_eng_form/", views.create_eng, name="new_eng_form"),
+    path("accounts/", account_list_view, name="accounts"),
+    path("user_accounts/", user_account_list_view, name="user_accounts"),
+    path("set_testing_status/", views.set_testing_status_request, name="set_testing_status"),
+    path("create_account_form/", views.create_account_request, name="create_account_form"),
+    path("register_eng_form/", views.register_eng_request, name="register_eng_form"),
     path("login/", views.login_request, name="login"),
     path("logout/", views.logout_request, name="logout"),
 ]

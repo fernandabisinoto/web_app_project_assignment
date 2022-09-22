@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-%sbj&dryg9^czopaf-cb^7yf_oss-(ns+-3b+bhgr3dv@h=j#p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['web-app-project-assignment.herokuapp.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['web-app-project-assignment.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'web_app',
     'crispy_forms',
 ]
-
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,7 +56,7 @@ ROOT_URLCONF = 'web_app_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,10 +1,20 @@
-.messages {
-    font-weight: 600;
-    color: blue;
+/*
+References:
+    site.css based on css file in 'Create a base page template and styles' section of Django tutorial:
+
+    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 09 September 2022).
+ */
+ .messages {
+    background-color: black;
+    text-align: center;
+}
+
+.navbar {
+    background-color: cadetblue;
 }
 
 .navbar, .messages {
-    background-color: lightslategray;
     font-size: 1em;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
@@ -16,7 +26,7 @@
     color: inherit;
 }
 
-.navbar-brand {
+.navbar-brand, h2 {
     font-size: 1.2em;
     font-weight: 600;
 }
@@ -28,14 +38,14 @@
 
 .body-content {
     padding: 5px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input[name=customerASIN] {
+input[name=message] {
     width: 80%;
 }
 
-.customer_list th,td {
+.account_list th, td {
     text-align: left;
     padding-right: 15px;
 }

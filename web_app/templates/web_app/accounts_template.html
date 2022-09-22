@@ -1,0 +1,49 @@
+<!---
+References:
+    Template based on home.html in 'Use the debugger with page templates' section of Django Tutorial:
+
+    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 10 September 2022).
+
+    edit_ticket_request url based on section 4 in:
+
+    Dev 2 Qa (2019) [online] ‘How To Pass Parameters To View Via Url In Django’. Available at:
+    https://www.dev2qa.com/how-to-pass-parameters-to-view-via-url-in-django/ (Accessed: 10 Semptember 2022).
+--->
+{% if account_list %}
+    <table class="account_list">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>ASIN</th>
+            <th>Marketplace</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Created By</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for account in account_list %}
+            <tr>
+                <td>{{ account.created | date:'d M Y' }}</td>
+                <td>{{ account.created | time:'H:i:s' }}</td>
+                <td>{{ account.ASIN }}</td>
+                <td>{{ account.marketplace }}</td>
+                <td>{{ account.description }}</td>
+                <td>{{ account.status }}</td>
+                <td>{{ account.created_by.name }}</td>
+                <td>
+                    <a href="{% url 'edit_account' pk=account.id %}">Edit</a>
+                    {% if request.user.is_superuser %}
+                        <a href="{% url 'delete_account' pk=account.id %}">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No accounts have been created yet. Use the <a href="{% url 'create_account_form' %}">Create Account form</a>.</p>
+{% endif %}
