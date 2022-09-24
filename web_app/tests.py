@@ -16,11 +16,6 @@ References:
     Moppag (2017) [online] python - How can I unit test django messages?, Stack Overflow. Available at:
     https://stackoverflow.com/a/46865530 (Accessed: 21 September 2022).
 """
-import os
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_app_project.settings')
-
-import django
-django.setup()
 
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
