@@ -1,1 +1,5 @@
 *.venv
+*.env
+*/web_app/__pycache__/
+*/web_app/migrations/__pycache__/
+*/web_app_project/__pycache__/

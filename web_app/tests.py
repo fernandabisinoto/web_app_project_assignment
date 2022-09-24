@@ -16,11 +16,11 @@ References:
     Moppag (2017) [online] python - How can I unit test django messages?, Stack Overflow. Available at:
     https://stackoverflow.com/a/46865530 (Accessed: 21 September 2022).
 """
-# import os
-# os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_app_project.settings')
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_app_project.settings')
 
-# import django
-# django.setup()
+import django
+django.setup()
 
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
@@ -67,15 +67,15 @@ class CreateAccountFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_form_is_not_valid_if_ASIN_exists(self):
-        Engineer.objects.create(name="created_by", is_currently_testing=True)
-        created_by = Engineer.objects.get(name="created_by")
+        Engineer.objects.create(name="creator", is_currently_testing=True)
+        creator = Engineer.objects.get(name="creator")
         created = timezone.datetime(year=2022, month=1, day=1, tzinfo=UTC)
         Account.objects.create(ASIN="testASIN123",
                                created=created,
                                marketplace=self.marketplace,
                                description=self.description,
                                status=self.status,
-                               created_by=created_by)
+                               creator=creator)
         form = CreateAccountForm(
             data={"ASIN": "testASIN123", "marketplace": self.marketplace, "description": self.description, "status": self.status})
 
@@ -232,7 +232,7 @@ class AccountTestCase(TestCase):
                                marketplace=Account.Marketplace.UK,
                                description="description",
                                status=Account.Status.A,
-                               created_by=engineer)
+                               creator=engineer)
 
     def test_account(self):
         account = Account.objects.get(ASIN="testASIN123")
@@ -242,8 +242,8 @@ class AccountTestCase(TestCase):
         self.assertEqual(account.marketplace, Account.Marketplace.UK)
         self.assertEqual(account.description, "description")
         self.assertEqual(account.status, Account.Status.A)
-        self.assertEqual(account.created_by.name, "test_creator")
-        self.assertEqual(account.created_by.is_currently_testing, True)
+        self.assertEqual(account.creator.name, "test_creator")
+        self.assertEqual(account.creator.is_currently_testing, True)
 
 
 class ViewsTestCase(TestCase):
@@ -276,7 +276,7 @@ class ViewsTestCase(TestCase):
                                marketplace=Account.Marketplace.UK,
                                description="description",
                                status=Account.Status.A,
-                               created_by=engineer)
+                               creator=engineer)
 
     def test_home_view(self):
         response = self.client.get("")
@@ -302,7 +302,7 @@ class ViewsTestCase(TestCase):
         messages = [m.message for m in get_messages(response.wsgi_request)]
         self.assertIn("Registration successful.", messages)
         users = get_user_model().objects.all()
-        self.assertEqual(users.count(), 7)
+        self.assertEqual(users.count(), 3)
 
     def test_register_with_invalid_details(self):
         response = self.client.post(reverse("register_eng_form"), data={})

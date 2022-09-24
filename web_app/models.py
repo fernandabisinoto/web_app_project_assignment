@@ -74,4 +74,4 @@ class Account(models.Model):
         max_length=50
     )
 
-    created_by = models.ForeignKey(Engineer, on_delete=models.CASCADE, blank=True)
+    creator = models.ForeignKey(Engineer, on_delete=models.CASCADE, blank=True)

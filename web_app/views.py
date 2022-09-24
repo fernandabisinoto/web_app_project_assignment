@@ -49,7 +49,7 @@ class AccountListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.path == "/user_accounts/":
             user = get_user(self.request)
-            return Account.objects.filter(created_by__name=user.get_full_name()) 
+            return Account.objects.filter(creator__name=user.get_full_name()) 
         return Account.objects.all()
 
 
@@ -73,9 +73,9 @@ def create_account_request(request):
             account = form.save(commit=False)
             account.created = timezone.now()
             user = get_user(request)
-            created_by = Engineer.objects.filter(name=user.get_full_name())
-            if created_by.count() != 0:
-                account.created_by = created_by[0]
+            creator = Engineer.objects.filter(name=user.get_full_name())
+            if creator.count() != 0:
+                account.creator = creator[0]
             account.save()
             messages.info(request, f"Account {account.ASIN} has been created.")
             return redirect("accounts")
