@@ -24,6 +24,7 @@ References:
     <a href="{% url 'home' %}" class="navbar-brand">Home</a>
     <a href="{% url 'accounts' %}" class="navbar-item">Test Accounts</a>
     <a href="{% url 'user_accounts' %}" class="navbar-item">User Test Accounts</a>
+    <a href="{% url 'set_testing_status' %}" class="navbar-item">Set Testing Status</a>
     <a href="{% url 'create_account_form' %}" class="navbar-item">Create Test Account</a>
     <a href="{% url 'register_eng_form' %}" class="navbar-item" {% if request.user.is_authenticated %}style="display: none"
     {% else %}style="display: inline"{% endif %}>Register Engineer</a>
