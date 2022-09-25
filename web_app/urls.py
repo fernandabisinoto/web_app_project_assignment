@@ -1,5 +1,4 @@
-from django.urls import path
-from django.conf.urls import url
+from django.urls import path, re_path
 
 from web_app import views
 
@@ -8,8 +7,8 @@ user_account_list_view = views.AccountListView.as_view(template_name="web_app/us
 delete_account_list_view = views.AccountDeleteView.as_view(template_name="web_app/delete_account_form.html")
 
 urlpatterns = [
-    url(r'^accounts/update/(?P<pk>\d)/$', views.edit_account_request, name="edit_account"),
-    url(r'^accounts/delete/(?P<pk>\d)/$', delete_account_list_view, name="delete_account"),
+    re_path(r'^accounts/update/(?P<pk>\d)/$', views.edit_account_request, name="edit_account"),
+    re_path(r'^accounts/delete/(?P<pk>\d)/$', delete_account_list_view, name="delete_account"),
     path("", views.home_request, name="home"),
     path("accounts/", account_list_view, name="accounts"),
     path("user_accounts/", user_account_list_view, name="user_accounts"),
