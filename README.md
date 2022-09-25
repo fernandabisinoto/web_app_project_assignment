@@ -17,6 +17,6 @@ A simple testing accounts web database application was created based on the requ
 
 ### Database Tables:
 
-Account
-Engineer
-django.contrib.auth.models.User
+* Account
+* Engineer
+* django.contrib.auth.models.User
