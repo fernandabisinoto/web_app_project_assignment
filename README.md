@@ -1,8 +1,8 @@
-### web_app Project
+## web_app_project
 
 A simple testing accounts web database application was created based on the requirements of Amazon’s Alexa team.
 
-## Current functions:
+### Current functions:
 
 * Register User (Creates in database)
 * Login User
@@ -15,7 +15,7 @@ A simple testing accounts web database application was created based on the requ
 * Update Account (Updates database)
 * Remove Account (Deletes in database - ADMIN)
 
-## Database Tables:
+### Database Tables:
 
 Account
 Engineer
