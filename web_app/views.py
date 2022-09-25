@@ -111,7 +111,7 @@ def register_eng_request(request):
     return render (request, "web_app/register_eng_form.html", {"register_eng_form":form})    
 
 def login_request(request):
-    form = AuthenticationForm(request, data=request.POST)
+    form = AuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
         if form.is_valid():
             username = form.cleaned_data.get('username')
