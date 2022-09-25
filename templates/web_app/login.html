@@ -7,12 +7,14 @@ References:
 --->
 {% extends "web_app/layout.html" %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
     <div class="container py-5">
         <h2>Login</h2>
         <form method="POST">
             {% csrf_token %}
-            {{ login_form }}
+            {{ login_form|crispy }}
             <button class="btn btn-primary" type="submit">Login</button>
         </form>
         <p class="text-center">New to the application? <a href="{% url 'register_eng_form' %}">Register New Engineer</a>.</p>
