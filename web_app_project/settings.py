@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from decouple import Config
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +29,7 @@ SECRET_KEY = Config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['web-app-project-assignment.herokuapp.com']
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -76,6 +79,7 @@ WSGI_APPLICATION = 'web_app_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+db_from_env = dj_database_url.config(conn_max_age=600)
 
 DATABASES = {
     'default': {
@@ -84,6 +88,7 @@ DATABASES = {
     },
 }
 
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
