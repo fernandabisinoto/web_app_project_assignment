@@ -25,16 +25,19 @@ References:
 
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DeleteView
+
 from django.contrib.auth import login, authenticate, get_user, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 from django.urls import reverse_lazy
 from django.utils import timezone
 
 from web_app.forms import CreateAccountForm, RegisterEngineerForm, EditAccountForm, SetTestingStatusForm
 from web_app.models import Account, Engineer
+
 
 class AccountListView(LoginRequiredMixin, ListView):
     login_url = "login"
@@ -62,8 +65,10 @@ class AccountDeleteView(PermissionRequiredMixin, DeleteView):
         messages.info(self.request, "Account successfully deleted.")
         return reverse_lazy("accounts")
 
+
 def home_request(request):
     return render(request, "web_app/home.html")
+
 
 @login_required(login_url="login")
 def create_account_request(request):
@@ -82,6 +87,7 @@ def create_account_request(request):
         messages.error(request, "Form is not valid.")
     return render(request, "web_app/create_account_form.html", {"create_account_form": form})
 
+
 @login_required(login_url="login")
 def edit_account_request(request, pk):
     try:
@@ -99,6 +105,7 @@ def edit_account_request(request, pk):
     return render(request=request, template_name="web_app/edit_account_form.html",
                   context={"edit_account_form": form, "instance": instance})    
 
+
 def register_eng_request(request):
     form = RegisterEngineerForm(request.POST or None)
     if request.method == "POST":
@@ -109,6 +116,7 @@ def register_eng_request(request):
             return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     return render (request, "web_app/register_eng_form.html", {"register_eng_form":form})    
+
 
 def login_request(request):
     form = AuthenticationForm(request, data=request.POST or None)
@@ -124,11 +132,13 @@ def login_request(request):
         messages.error(request,"Invalid username or password.")
     return render(request, "web_app/login.html", {"login_form":form})
 
+
 @login_required(login_url="login")
 def logout_request(request):
-	logout(request)
-	messages.info(request, "You have successfully logged out.") 
-	return redirect("login")
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect("login")
+
 
 @login_required(login_url="login")
 def set_testing_status_request(request):

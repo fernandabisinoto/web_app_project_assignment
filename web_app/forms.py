@@ -18,17 +18,21 @@ References:
 """
 
 from django import forms
+
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
 from web_app.models import Account, Engineer
 
+
 class CreateAccountForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ("ASIN", "marketplace", "description", "status")
+
 
 class EditAccountForm(forms.ModelForm):
     ASIN = forms.CharField(disabled=True)
@@ -37,6 +41,7 @@ class EditAccountForm(forms.ModelForm):
     class Meta:
         model = Account
         fields = ("ASIN", "created", "marketplace", "description", "status")
+
 
 class RegisterEngineerForm(UserCreationForm):
     first_name = forms.CharField(required=True)
@@ -64,7 +69,7 @@ class RegisterEngineerForm(UserCreationForm):
             user.save()
         return user  
 
+
 class SetTestingStatusForm(forms.Form):
     engineer = forms.ModelChoiceField(
         label="Engineer Choices", queryset=Engineer.objects.all(), required=True)        
-        

@@ -1,5 +1,4 @@
 from django.urls import path, re_path
-
 from web_app import views
 
 account_list_view = views.AccountListView.as_view(template_name="web_app/accounts.html")

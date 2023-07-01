@@ -9,6 +9,7 @@ References:
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+
 class Engineer(models.Model):
     is_currently_testing = models.BooleanField(
         _('testing status'),
@@ -22,6 +23,7 @@ class Engineer(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Account(models.Model):
     class Marketplace(models.TextChoices):
