@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'middleware.SQLInjectionMiddleware',
+    'middleware.SQLInjectionMiddleware.SQLInjectionMiddleware',
 ]
 
 ROOT_URLCONF = 'web_app_project.urls'
