@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['web-app-project-assignment.herokuapp.com']
+ALLOWED_HOSTS = ['web-app-project-build-638c8f825f30.herokuapp.com', 'web-app-project-assignment.herokuapp.com']
 
 # Application definition
 
