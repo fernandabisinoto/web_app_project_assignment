@@ -11,6 +11,7 @@ jobs:
     environment: web-app-project-build
     env: 
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DEBUG: ${{ secrets.DEBUG }}
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
