@@ -155,3 +155,7 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
+
+AUTHENTICATION_BACKENDS = [
+    'authentication_failure_logger.AuthenticationFailureLoggerModelBackend',
+]
