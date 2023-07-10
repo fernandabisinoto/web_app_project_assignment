@@ -39,7 +39,7 @@ from middleware.SQLInjectionMiddleware import SQLInjectionMiddleware
 from sql_injection_logger import sql_injection_logger
 
 
-class CreateAccountFormTestCase(TestCase):
+class CreateAccountFormTest(TestCase):
     def setUp(self):
         self.ASIN = "testASIN123"
         self.marketplace = Account.Marketplace.UK
@@ -88,7 +88,7 @@ class CreateAccountFormTestCase(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class RegisterEngineerFormTestCase(TestCase):
+class RegisterEngineerFormTest(TestCase):
     def setUp(self):
         self.first_name = "testFirstName"
         self.last_name = "testLastName"
@@ -194,7 +194,7 @@ class RegisterEngineerFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
 
-class SetTestingStatusFormTestCase(TestCase):
+class SetTestingStatusFormTest(TestCase):
     def setUp(self):
         Engineer.objects.create(name="test", is_currently_testing=False)
 
@@ -214,7 +214,7 @@ class SetTestingStatusFormTestCase(TestCase):
         self.assertTrue(form.is_valid())
 
 
-class EngineerTestCase(TestCase):
+class EngineerTest(TestCase):
     def setUp(self):
         Engineer.objects.create(name="firstEngineer", is_currently_testing=True)
         Engineer.objects.create(name="secondEngineer", is_currently_testing=False)
@@ -229,7 +229,7 @@ class EngineerTestCase(TestCase):
         self.assertEqual(secondEngineer.is_currently_testing, False)
 
 
-class AccountTestCase(TestCase):
+class AccountTest(TestCase):
     def setUp(self):
         engineer = Engineer.objects.create(name="test_creator", is_currently_testing=True)
         created = timezone.datetime(year=2022, month=1, day=1, tzinfo=UTC)
@@ -252,7 +252,7 @@ class AccountTestCase(TestCase):
         self.assertEqual(account.creator.is_currently_testing, True)
 
 
-class ViewsTestCase(TestCase):
+class ViewsTest(TestCase):
     def setUp(self):
         self.user_name = "test_user"
         self.user_password = "Test_password123"
@@ -507,20 +507,20 @@ class AuthenticationFailureLoggerModelBackendTest(TestCase):
         self.assertLogs(logger='authentication_failure_logger.AuthenticationFailureLoggerModelBackend', level='WARNING')
 
 
-class TestSQLInjectionMiddleware(TestCase):
+class SQLInjectionMiddlewareTest(TestCase):
     def setUp(self):
         self.get_response = MagicMock()
         self.middleware = SQLInjectionMiddleware(self.get_response)
 
     def test_sql_injection_warning(self):
         connection.queries = [
-            {'sql': 'SELECT * FROM mockTable'},
-            {'sql': 'DROP TABLE mockTable'},
+            {'sql': 'SELECT * FROM Engineer'},
+            {'sql': 'DROP TABLE Engineer'},
         ]
 
         self.middleware(None)
 
-        expected_warning = "Potential SQL injection detected: DROP TABLE mockTable"
+        expected_warning = "Potential SQL injection detected: DROP TABLE Engineer"
         self.assertTrue(sql_injection_logger.warning.called)
         self.assertEqual(
             sql_injection_logger.warning.call_args[0][0],
@@ -529,8 +529,8 @@ class TestSQLInjectionMiddleware(TestCase):
 
     def test_no_sql_injection_warning(self):
         connection.queries = [
-            {'sql': 'SELECT * FROM mockTable'},
-            {'sql': 'SELECT * FROM mockTable'},
+            {'sql': 'SELECT * FROM Engineer'},
+            {'sql': 'SELECT * FROM Account'},
         ]
 
         self.middleware(None)
