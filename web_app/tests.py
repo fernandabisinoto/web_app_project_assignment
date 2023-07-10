@@ -4,31 +4,39 @@ References:
     ViewsTestCase based on 'Views' section of:
 
     MDN Contributors (2022) [online] Django Tutorial Part 10. Available at:
-    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing (Accessed: 14 September 2022).
+    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing (Accessed: 14 July 2023).
 
     EngineerTestCase and AccountTestCase were based on the following:
 
     Django (no date) [online] Writing and running tests | Django documentation. Available at:
-    https://docs.djangoproject.com/en/4.0/topics/testing/overview/ (Accessed: 13 September 2022).
+    https://docs.djangoproject.com/en/4.0/topics/testing/overview/ (Accessed: 13 July 2023).
 
     Message response testing based on Stack overflow answer:
 
     Moppag (2017) [online] python - How can I unit test django messages?, Stack Overflow. Available at:
-    https://stackoverflow.com/a/46865530 (Accessed: 21 September 2022).
+    https://stackoverflow.com/a/46865530 (Accessed: 11 July 2023).
 """
 
 from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.contrib.auth.models import User
 
-from django.test import TestCase
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from django.utils import timezone
+from django.db import connection
 
 from pytz import UTC
 
+from unittest.mock import MagicMock
+
 from web_app.forms import CreateAccountForm, RegisterEngineerForm, SetTestingStatusForm
 from web_app.models import Engineer, Account
+
+from authentication_failure_logger import AuthenticationFailureLoggerModelBackend
+
+from middleware.SQLInjectionMiddleware import SQLInjectionMiddleware
+from sql_injection_logger import sql_injection_logger
 
 
 class CreateAccountFormTestCase(TestCase):
@@ -476,3 +484,55 @@ class ViewsTestCase(TestCase):
             "username": self.user_name,
             "password": self.user_password
         })
+
+
+class AuthenticationFailureLoggerModelBackendTest(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.backend = AuthenticationFailureLoggerModelBackend()
+        self.username = 'testuser'
+        self.password = 'testpass'
+        self.user = get_user_model().objects.create_user(username=self.username, password=self.password)
+
+    def test_authenticate_success(self):
+        request = self.factory.get('/')
+        user = self.backend.authenticate(request, username=self.username, password=self.password)
+        self.assertEqual(user, self.user)
+
+    def test_authenticate_failure(self):
+        request = self.factory.get('/')
+        user = self.backend.authenticate(request, username='invalid', password='password')
+        self.assertIsNone(user)
+        # Check if the warning log message is generated
+        self.assertLogs(logger='authentication_failure_logger.AuthenticationFailureLoggerModelBackend', level='WARNING')
+
+
+class TestSQLInjectionMiddleware(TestCase):
+    def setUp(self):
+        self.get_response = MagicMock()
+        self.middleware = SQLInjectionMiddleware(self.get_response)
+
+    def test_sql_injection_warning(self):
+        connection.queries = [
+            {'sql': 'SELECT * FROM mockTable'},
+            {'sql': 'DROP TABLE mockTable'},
+        ]
+
+        self.middleware(None)
+
+        expected_warning = "Potential SQL injection detected: DROP TABLE mockTable"
+        self.assertTrue(sql_injection_logger.warning.called)
+        self.assertEqual(
+            sql_injection_logger.warning.call_args[0][0],
+            expected_warning,
+        )
+
+    def test_no_sql_injection_warning(self):
+        connection.queries = [
+            {'sql': 'SELECT * FROM mockTable'},
+            {'sql': 'SELECT * FROM mockTable'},
+        ]
+
+        self.middleware(None)
+
+        self.assertFalse(sql_injection_logger.warning.called)

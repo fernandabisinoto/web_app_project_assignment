@@ -1,3 +1,12 @@
+"""
+References:
+
+    AuthenticationFailureLoggerModelBackend based on django documentation:
+
+    Django (2023) [online] How to configure and use logging. Available at:
+    https://docs.djangoproject.com/en/4.2/howto/logging/ (Accessed: 10 July 2023)
+"""
+
 from django.contrib.auth.backends import ModelBackend
 import logging
 

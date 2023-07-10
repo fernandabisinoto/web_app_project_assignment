@@ -3,18 +3,18 @@ References:
     CreateAccountForm based on 'LogMessageForm' in 'use the database through the models' section of Django tutorial:
 
     Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
-    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 13 September 2022).
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 13 July 2023).
 
     RegisterEngineerForm based on 'create the register form' found at:
 
     Ordinary Coders (2020) [online] A Guide to User Registration, Login, and Logout in Django. Available at:
-    https://ordinarycoders.com/blog/article/django-user-register-login-logout (Accessed: 13 September 2022).
+    https://ordinarycoders.com/blog/article/django-user-register-login-logout (Accessed: 13 July 2023).
 
     SetTestingStatusForm based on the comment by Chad on Stack Overflow:
 
     Chad (2021) [online] ‘Django dropdown menu/form based on model entries’, Stack Overflow. Available at:
     https://stackoverflow.com/questions/66655712/django-dropdown-menu-form-based-on-model-entries
-    (Accessed: 13 September 2022).
+    (Accessed: 13 July 2023).
 """
 
 from django import forms
