@@ -514,8 +514,8 @@ class SQLInjectionMiddlewareTest(TestCase):
 
     def test_sql_injection_warning(self):
         connection.queries = [
-            {'sql': 'SELECT * FROM Engineer'},
-            {'sql': 'DROP TABLE Engineer'},
+            {'sql': 'SELECT * FROM web_app_engineer'},
+            {'sql': 'DROP TABLE web_app_engineer'},
         ]
 
         self.middleware(None)
@@ -529,8 +529,8 @@ class SQLInjectionMiddlewareTest(TestCase):
 
     def test_no_sql_injection_warning(self):
         connection.queries = [
-            {'sql': 'SELECT * FROM Engineer'},
-            {'sql': 'SELECT * FROM Account'},
+            {'sql': 'SELECT * FROM web_app_engineer'},
+            {'sql': 'SELECT * FROM web_app_account'},
         ]
 
         self.middleware(None)
