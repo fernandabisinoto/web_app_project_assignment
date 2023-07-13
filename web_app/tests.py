@@ -28,7 +28,7 @@ from django.db import connection
 
 from pytz import UTC
 
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from web_app.forms import CreateAccountForm, RegisterEngineerForm, SetTestingStatusForm
 from web_app.models import Engineer, Account
@@ -513,12 +513,13 @@ class SQLInjectionMiddlewareTest(TestCase):
         self.middleware = SQLInjectionMiddleware(self.get_response)
 
     def test_sql_injection_warning(self):
-        connection.queries = [
+        queries = [
             {'sql': 'SELECT * FROM web_app_engineer'},
             {'sql': 'DROP TABLE web_app_engineer'},
         ]
 
-        self.middleware(None)
+        with patch('django.db.connection.queries', queries):
+            self.middleware(None)
 
         expected_warning = "Potential SQL injection detected: DROP TABLE Engineer"
         self.assertTrue(sql_injection_logger.warning.called)
@@ -528,11 +529,12 @@ class SQLInjectionMiddlewareTest(TestCase):
         )
 
     def test_no_sql_injection_warning(self):
-        connection.queries = [
+        queries = [
             {'sql': 'SELECT * FROM web_app_engineer'},
             {'sql': 'SELECT * FROM web_app_account'},
         ]
 
-        self.middleware(None)
+        with patch('django.db.connection.queries', queries):
+            self.middleware(None)
 
         self.assertFalse(sql_injection_logger.warning.called)
