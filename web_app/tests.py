@@ -518,7 +518,7 @@ class SQLInjectionMiddlewareTest(TestCase):
             {'sql': 'DROP TABLE web_app_engineer'},
         ]
 
-        with patch('django.db.connection.queries', queries):
+        with patch.object(connection, 'queries', queries):
             self.middleware(None)
 
         expected_warning = "Potential SQL injection detected: DROP TABLE Engineer"
@@ -534,7 +534,7 @@ class SQLInjectionMiddlewareTest(TestCase):
             {'sql': 'SELECT * FROM web_app_account'},
         ]
 
-        with patch('django.db.connection.queries', queries):
+        with patch.object(connection, 'queries', queries):
             self.middleware(None)
 
         self.assertFalse(sql_injection_logger.warning.called)
