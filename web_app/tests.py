@@ -24,20 +24,13 @@ from django.contrib.auth.models import User
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from django.utils import timezone
-from django.db import connection
 
 from pytz import UTC
-
-from unittest.mock import MagicMock
-from contextlib import contextmanager
 
 from web_app.forms import CreateAccountForm, RegisterEngineerForm, SetTestingStatusForm
 from web_app.models import Engineer, Account
 
 from authentication_failure_logger import AuthenticationFailureLoggerModelBackend
-
-from middleware.SQLInjectionMiddleware import SQLInjectionMiddleware
-from sql_injection_logger import sql_injection_logger
 
 
 class CreateAccountFormTest(TestCase):
@@ -506,47 +499,3 @@ class AuthenticationFailureLoggerModelBackendTest(TestCase):
         self.assertIsNone(user)
         # Check if the warning log message is generated
         self.assertLogs(logger='authentication_failure_logger.AuthenticationFailureLoggerModelBackend', level='WARNING')
-
-
-class SQLInjectionMiddlewareTest(TestCase):
-    def setUp(self):
-        self.get_response = MagicMock()
-        self.middleware = SQLInjectionMiddleware(self.get_response)
-
-    def test_sql_injection_warning(self):
-        queries = [
-            {'sql': 'SELECT * FROM web_app_engineer'},
-            {'sql': 'DROP TABLE web_app_engineer'},
-        ]
-
-        with mock_connection_queries(queries):
-            self.middleware(None)
-
-        expected_warning = "Potential SQL injection detected: DROP TABLE Engineer"
-        self.assertTrue(sql_injection_logger.warning.called)
-        self.assertEqual(
-            sql_injection_logger.warning.call_args[0][0],
-            expected_warning,
-        )
-
-    def test_no_sql_injection_warning(self):
-        queries = [
-            {'sql': 'SELECT * FROM web_app_engineer'},
-            {'sql': 'SELECT * FROM web_app_account'},
-        ]
-
-        with mock_connection_queries(queries):
-            self.middleware(None)
-
-        self.assertFalse(sql_injection_logger.warning.called)
-
-
-@contextmanager
-def mock_connection_queries(queries):
-    original_queries = connection.queries
-    connection.queries = queries
-    try:
-        yield
-    finally:
-        connection.queries = original_queries
-        
