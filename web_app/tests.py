@@ -497,5 +497,40 @@ class AuthenticationFailureLoggerModelBackendTest(TestCase):
         request = self.factory.get('/')
         user = self.backend.authenticate(request, username='invalid', password='password')
         self.assertIsNone(user)
-        # Check if the warning log message is generated
         self.assertLogs(logger='authentication_failure_logger.AuthenticationFailureLoggerModelBackend', level='WARNING')
+
+# TODO: fix tests
+# class SQLInjectionMiddlewareTest(TestCase):
+#     def setUp(self):
+#         self.get_response = MagicMock()
+#         self.middleware = SQLInjectionMiddleware(self.get_response)
+#
+#     def test_sql_injection_warning(self):
+#         connection.queries = [
+#             {'sql': 'SELECT * FROM web_app_engineer'},
+#             {'sql': 'DROP TABLE web_app_engineer'},
+#             {'sql': 'SELECT * FROM web_app_account'},
+#             {'sql': 'DELETE FROM web_app_account'},
+#         ]
+#
+#         self.middleware(None)
+#
+#         expected_warning = "Potential SQL injection detected: DROP TABLE users"
+#         self.assertTrue(sql_injection_logger.warning.called)
+#         self.assertEqual(
+#             sql_injection_logger.warning.call_args[0][0],
+#             expected_warning,
+#         )
+#
+#     def test_no_sql_injection_warning(self):
+#         connection.queries = [
+#             {'sql': 'SELECT * FROM web_app_engineer'},
+#             {'sql': 'SELECT * FROM web_app_account'},
+#         ]
+#
+#         self.middleware(None)
+#
+#         self.assertFalse(sql_injection_logger.warning.called)
+#
+# if __name__ == '__main__':
+#     unittest.main()
