@@ -52,6 +52,3 @@ jobs:
       run: |
         python manage.py collectstatic
         python manage.py test    
-
-
-#adding dummy comment to test GitHub Workflow
