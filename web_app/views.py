@@ -3,24 +3,24 @@ References:
     TicketListView based on 'HomeListView', create_ticket_request and set_on_call_request based on 'log_message'
     in 'use the database through the models' section of Django tutorial:
 
-    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
-    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 07 September 2022).
+    Visual Studio Code (2023) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 07 July 2023).
 
     TicketDeleteView based on 'DeleteView' in Django documentation:
 
-    Django (no date) [online] Generic editing views | Django documentation. Available at:
+    Django (2023) [online] Generic editing views | Django documentation. Available at:
     https://docs.djangoproject.com/en/4.0/ref/class-based-views/generic-editing/#django.views.generic.edit.DeleteView
-    (Accessed: 09 September 2022).
+    (Accessed: 09 July 2023).
 
     register_request and login_request based on 'add register/login functions to views' sections of:
 
     Ordinary Coders (2020) [online] A Guide to User Registration, Login, and Logout in Django. Available at:
-    https://ordinarycoders.com/blog/article/django-user-register-login-logout (Accessed: 15 September 2022).
+    https://ordinarycoders.com/blog/article/django-user-register-login-logout (Accessed: 15 July 2023).
 
     edit_ticket_request based on Stack overflow comment:
 
     Roseman, D. (2018) [online] Django, how to include pre-existing data in update form view, Stack Overflow.
-    Available at: https://stackoverflow.com/a/52494854 (Accessed: 15 September 2022).
+    Available at: https://stackoverflow.com/a/52494854 (Accessed: 15 July 2023).
 """
 
 from django.shortcuts import render, redirect
@@ -115,7 +115,7 @@ def register_eng_request(request):
             messages.success(request, "Registration successful." )
             return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    return render (request, "web_app/register_eng_form.html", {"register_eng_form":form})    
+    return render(request, "web_app/register_eng_form.html", {"register_eng_form":form})
 
 
 def login_request(request):

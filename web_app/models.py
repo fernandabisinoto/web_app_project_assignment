@@ -2,7 +2,7 @@
 References:
     Engineer and Account models were based on the code in the 'define models' section of Django tutorial:
 
-    Visual Studio Code (no date) [online] Python and Django tutorial in Visual Studio Code. Available at:
+    Visual Studio Code (2023) [online] Python and Django tutorial in Visual Studio Code. Available at:
     https://code.visualstudio.com/docs/python/tutorial-django (Accessed: 13 July 2023).
 """
 

@@ -1,14 +1,14 @@
 """
 References:
-    CreateAccountFormTestCase, RegisterEngineerFormTestCase, and SetTestingStatusFormTestCase based on tests in 'Forms' section and
-    ViewsTestCase based on 'Views' section of:
+    CreateAccountFormTestCase, RegisterEngineerFormTestCase, and SetTestingStatusFormTestCase based on tests in 'Forms'
+    section and ViewsTestCase based on 'Views' section of:
 
-    MDN Contributors (2022) [online] Django Tutorial Part 10. Available at:
+    MDN Contributors (2023) [online] Django Tutorial Part 10. Available at:
     https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing (Accessed: 14 July 2023).
 
     EngineerTestCase and AccountTestCase were based on the following:
 
-    Django (no date) [online] Writing and running tests | Django documentation. Available at:
+    Django (2023) [online] Writing and running tests | Django documentation. Available at:
     https://docs.djangoproject.com/en/4.0/topics/testing/overview/ (Accessed: 13 July 2023).
 
     Message response testing based on Stack overflow answer:
