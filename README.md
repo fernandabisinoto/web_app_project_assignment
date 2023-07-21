@@ -1,4 +1,4 @@
-## web_app_project
+## Alexa Test Accounts Application
 
 A simple 'test accounts' web database application was created based on the requirements of the Amazon Alexa team.
 
