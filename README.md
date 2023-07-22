@@ -27,3 +27,6 @@ database application was created to store the details of these test accounts, su
 * Account
 * Engineer
 * django.contrib.auth.models.User
+
+### Dependencies:
+* [requirements.txt](https://github.com/fernawndabisinoto/web_app_project_assignment/blob/a234d8a11ade6c39534754eed3b205d5dfcba05c/requirements.txt) 
