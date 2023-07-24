@@ -25,13 +25,11 @@ References:
 
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DeleteView
-
 from django.contrib.auth import login, authenticate, get_user, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
 from django.urls import reverse_lazy
 from django.utils import timezone
 
@@ -52,7 +50,7 @@ class AccountListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.path == "/user_accounts/":
             user = get_user(self.request)
-            return Account.objects.filter(creator__name=user.get_full_name()) 
+            return Account.objects.filter(creator__name=user.get_full_name())
         return Account.objects.all()
 
 
@@ -103,7 +101,7 @@ def edit_account_request(request, pk):
             return redirect("accounts")
         messages.error(request, "Form is not valid.")
     return render(request=request, template_name="web_app/edit_account_form.html",
-                  context={"edit_account_form": form, "instance": instance})    
+                  context={"edit_account_form": form, "instance": instance})
 
 
 def register_eng_request(request):
@@ -115,7 +113,7 @@ def register_eng_request(request):
             messages.success(request, "Registration successful." )
             return redirect("home")
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    return render(request, "web_app/register_eng_form.html", {"register_eng_form":form})
+    return render (request, "web_app/register_eng_form.html", {"register_eng_form":form})
 
 
 def login_request(request):

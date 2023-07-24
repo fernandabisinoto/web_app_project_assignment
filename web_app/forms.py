@@ -18,10 +18,8 @@ References:
 """
 
 from django import forms
-
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 
@@ -67,9 +65,9 @@ class RegisterEngineerForm(UserCreationForm):
         if commit:
             engineer.save()
             user.save()
-        return user  
+        return user
 
 
 class SetTestingStatusForm(forms.Form):
     engineer = forms.ModelChoiceField(
-        label="Engineer Choices", queryset=Engineer.objects.all(), required=True)        
+        label="Engineer Choices", queryset=Engineer.objects.all(), required=True)
